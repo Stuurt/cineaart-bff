@@ -3,3 +3,6 @@ spring:
     name: filtec
   profiles:
     active: dev
+  rabbitmq:
+    password: admin
+    username: admin
