@@ -8,7 +8,7 @@ import org.springframework.amqp.core.MessageBuilder;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
-//
+
 @RequiredArgsConstructor
 @Component
 public class QueuePublisher {
