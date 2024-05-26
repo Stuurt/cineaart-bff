@@ -1,5 +1,6 @@
 package com.filtec.domain.queue;
 
+import com.filtec.domain.enums.ExchangeEnum;
 import com.filtec.domain.enums.QueueEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Message;
@@ -22,7 +23,7 @@ public class QueuePublisher {
                 .setCorrelationId(correlationId)
                 .build();
         rabbitTemplate.send(
-                "exchangeQueue",
+                ExchangeEnum.TICKET_EXCHANGE.getQueueName(),
                 QueueEnum.TICKET_QUEUE.getQueueName(),
                 message
         );
