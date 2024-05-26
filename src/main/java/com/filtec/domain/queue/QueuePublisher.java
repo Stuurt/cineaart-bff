@@ -8,25 +8,23 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
 public class QueuePublisher {
     private final RabbitTemplate rabbitTemplate;
 
-    public void publishTicket(String ticket) {
+    public void publishTicket(String ticket, String correlationId) {
         Message message = MessageBuilder
                 .withBody(ticket.getBytes(StandardCharsets.UTF_8))
                 .setContentType("text/plain")
-                .setCorrelationId(generateCorrelationId())
+                .setCorrelationId(correlationId)
                 .build();
         rabbitTemplate.send(
+                "exchangeQueue",
                 QueueEnum.TICKET_QUEUE.getQueueName(),
                 message
         );
-    }
-
-    private String generateCorrelationId() {
-        return java.util.UUID.randomUUID().toString();
     }
 }
