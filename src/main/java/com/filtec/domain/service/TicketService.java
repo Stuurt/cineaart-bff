@@ -19,7 +19,8 @@ public class TicketService {
     public void createTicket(TicketRequest ticket) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         var ticketJson = objectMapper.writeValueAsString(ticket);
+        var correlationId = ticket.getUuid().toString();
         log.info("sending new ticket to the queue: [" + ticketJson + "]");
-        queuePublisher.publishTicket(ticketJson);
+        queuePublisher.publishTicket(ticketJson, correlationId);
     }
 }
