@@ -6,3 +6,8 @@ spring:
   rabbitmq:
     password: admin
     username: admin
+  cloud:
+    openfeign:
+      okhttp:
+        enabled: true
+

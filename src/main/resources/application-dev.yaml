@@ -1,3 +1,6 @@
 spring:
   rabbitmq:
     host: localhost
+
+services:
+  cinema-service: http://localhost:8081
