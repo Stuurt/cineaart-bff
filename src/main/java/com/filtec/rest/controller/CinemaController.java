@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.filtec.domain.service.CinemaService;
 import com.filtec.rest.dto.PagedResource;
 import com.filtec.rest.dto.Session;
+import com.filtec.rest.dto.request.MovieCreateRequest;
 import com.filtec.rest.dto.request.SessionCreateRequest;
 import com.filtec.rest.dto.request.TicketRequest;
 import com.filtec.rest.dto.response.MovieListResponse;
@@ -58,6 +59,11 @@ public class CinemaController {
             @PathVariable(value = "movieId") Long movieId
     ) {
         return cinemaService.getMovieById(movieId);
+    }
+
+    @PostMapping("/movies")
+    public ResponseEntity<MovieResponse> createMovie(@RequestBody MovieCreateRequest movieRequest) {
+        return cinemaService.createMovie(movieRequest);
     }
 
     @GetMapping("/sessions/{sessionId}")

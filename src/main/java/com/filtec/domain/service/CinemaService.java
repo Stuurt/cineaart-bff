@@ -6,6 +6,7 @@ import com.filtec.domain.queue.QueuePublisher;
 import com.filtec.rest.client.CinemaClient;
 import com.filtec.rest.dto.PagedResource;
 import com.filtec.rest.dto.Session;
+import com.filtec.rest.dto.request.MovieCreateRequest;
 import com.filtec.rest.dto.request.SessionCreateRequest;
 import com.filtec.rest.dto.request.TicketRequest;
 import com.filtec.rest.dto.response.MovieListResponse;
@@ -24,6 +25,10 @@ public class CinemaService {
     private final Logger log = LoggerFactory.getLogger(CinemaService.class);
     private final CinemaClient cinemaClient;
     private final QueuePublisher queuePublisher;
+
+    public ResponseEntity<MovieResponse> createMovie(MovieCreateRequest movieCreateRequest) {
+        return cinemaClient.createMovie(movieCreateRequest);
+    }
 
     public ResponseEntity<MovieResponse> getMovieById(Long movieId) {
         return cinemaClient.getMovieById(movieId);

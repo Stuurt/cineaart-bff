@@ -3,6 +3,7 @@ package com.filtec.rest.client;
 import com.filtec.rest.config.feign.FeignConfiguration;
 import com.filtec.rest.dto.PagedResource;
 import com.filtec.rest.dto.Session;
+import com.filtec.rest.dto.request.MovieCreateRequest;
 import com.filtec.rest.dto.request.SessionCreateRequest;
 import com.filtec.rest.dto.response.MovieListResponse;
 import com.filtec.rest.dto.response.MovieResponse;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient(value = "cinema", url = "${services.cinema-service}", configuration = FeignConfiguration.class)
 public interface CinemaClient {
+
+    @PostMapping("/movies")
+    ResponseEntity<MovieResponse> createMovie(MovieCreateRequest movieCreateRequest);
 
     @GetMapping("/movies")
     ResponseEntity<PagedResource<MovieListResponse>> getAllMoviePaginated(
