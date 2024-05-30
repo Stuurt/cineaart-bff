@@ -1,4 +1,4 @@
-package com.filtec.rest.request;
+package com.filtec.rest.dto.request;
 
 import com.filtec.domain.enums.DiscountTypeEnum;
 import jakarta.validation.constraints.NotBlank;
@@ -17,14 +17,9 @@ import java.util.UUID;
 @Getter
 @Setter
 public class TicketRequest implements Serializable {
-    @NotNull
     private Long seatId;
-    @NotNull
     private UUID uuid;
-    @NotNull
     private BigDecimal paidPrice;
-    @NotNull
     private Integer seatNumber;
-    @NotBlank
     private DiscountTypeEnum discountType;
 }
