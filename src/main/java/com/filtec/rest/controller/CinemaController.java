@@ -6,6 +6,8 @@ import com.filtec.rest.dto.PagedResource;
 import com.filtec.rest.dto.Session;
 import com.filtec.rest.dto.request.SessionCreateRequest;
 import com.filtec.rest.dto.request.TicketRequest;
+import com.filtec.rest.dto.response.MovieListResponse;
+import com.filtec.rest.dto.response.MovieResponse;
 import com.filtec.rest.dto.response.SessionListResponse;
 import com.filtec.rest.dto.response.SessionResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/cinema")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "${services.frontend}")
 public class CinemaController {
     private final CinemaService cinemaService;
 
@@ -36,16 +38,32 @@ public class CinemaController {
     }
 
     @GetMapping("/sessions")
-    public ResponseEntity<PagedResource<SessionListResponse>> getAllSessions() {
-        return cinemaService.getAllSessions();
+    public ResponseEntity<PagedResource<SessionListResponse>> getSessionPage(
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+    ) {
+        return cinemaService.getSessionPage(page, size);
+    }
+
+    @GetMapping("/movies")
+    public ResponseEntity<PagedResource<MovieListResponse>> getMoviePage(
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+    ) {
+        return cinemaService.getMoviePage(page, size);
+    }
+
+    @GetMapping("/movies/{movieId}")
+    public ResponseEntity<MovieResponse> getMoviePage(
+            @PathVariable(value = "movieId") Long movieId
+    ) {
+        return cinemaService.getMovieById(movieId);
     }
 
     @GetMapping("/sessions/{sessionId}")
     public ResponseEntity<SessionResponse> getSession(
-            @PathVariable String sessionId,
-            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+            @PathVariable Long sessionId
     ) {
-        return cinemaService.getSession(sessionId, page, size);
+        return cinemaService.getSessionById(sessionId);
     }
 }

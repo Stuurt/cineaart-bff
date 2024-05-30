@@ -4,3 +4,4 @@ spring:
 
 services:
   cinema-service: http://localhost:8081
+  frontend: "*"
