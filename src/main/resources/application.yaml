@@ -10,4 +10,10 @@ spring:
     openfeign:
       okhttp:
         enabled: true
+      
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+
 

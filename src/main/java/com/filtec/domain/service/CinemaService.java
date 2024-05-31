@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,14 @@ public class CinemaService {
     private final Logger log = LoggerFactory.getLogger(CinemaService.class);
     private final CinemaClient cinemaClient;
     private final QueuePublisher queuePublisher;
+
+    public byte[] getMovieImage(Long movieId) {
+        return cinemaClient.getMovieImage(movieId);
+    }
+
+    public void saveMovieImage(Long movieId, MultipartFile[] image) {
+        cinemaClient.saveMovieImage(image, movieId);
+    }
 
     public ResponseEntity<MovieResponse> createMovie(MovieCreateRequest movieCreateRequest) {
         return cinemaClient.createMovie(movieCreateRequest);

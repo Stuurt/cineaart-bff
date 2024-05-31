@@ -13,8 +13,12 @@ import com.filtec.rest.dto.response.SessionListResponse;
 import com.filtec.rest.dto.response.SessionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -64,6 +68,23 @@ public class CinemaController {
     @PostMapping("/movies")
     public ResponseEntity<MovieResponse> createMovie(@RequestBody MovieCreateRequest movieRequest) {
         return cinemaService.createMovie(movieRequest);
+    }
+
+    @PostMapping("/movies/{movieId}")
+    public ResponseEntity<Void> saveMovieImage(
+            @RequestBody MultipartFile[] movieImage,
+            @PathVariable Long movieId
+    ) {
+        cinemaService.saveMovieImage(movieId, movieImage);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(
+            value = "/movies/get-image/{movieId}",
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
+    public @ResponseBody byte[] getMovieImage(@PathVariable Long movieId) {
+        return cinemaService.getMovieImage(movieId);
     }
 
     @GetMapping("/sessions/{sessionId}")

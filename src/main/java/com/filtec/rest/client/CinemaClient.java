@@ -1,6 +1,5 @@
 package com.filtec.rest.client;
 
-import com.filtec.rest.config.feign.FeignConfiguration;
 import com.filtec.rest.dto.PagedResource;
 import com.filtec.rest.dto.Session;
 import com.filtec.rest.dto.request.MovieCreateRequest;
@@ -11,11 +10,20 @@ import com.filtec.rest.dto.response.SessionListResponse;
 import com.filtec.rest.dto.response.SessionResponse;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(value = "cinema", url = "${services.cinema-service}", configuration = FeignConfiguration.class)
+@FeignClient(value = "cinema", url = "${services.cinema-service}")
 public interface CinemaClient {
+
+    @GetMapping(value = "/movies/get-image/{movieId}", produces = MediaType.IMAGE_JPEG_VALUE)
+    byte[] getMovieImage(@PathVariable("movieId") Long movieId);
+
+    @PostMapping(value = "/movies/{movieId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    ResponseEntity<Void> saveMovieImage(@RequestPart MultipartFile[] movieImage,
+                                        @PathVariable Long movieId);
 
     @PostMapping("/movies")
     ResponseEntity<MovieResponse> createMovie(MovieCreateRequest movieCreateRequest);
