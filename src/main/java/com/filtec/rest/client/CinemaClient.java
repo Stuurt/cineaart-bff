@@ -50,6 +50,13 @@ public interface CinemaClient {
             @RequestParam(value = "size", required = false, defaultValue = "10") int size
     );
 
+    @RequestMapping(method = RequestMethod.GET, value = "/sessions/movies/{movieId}")
+    ResponseEntity<PagedResource<SessionListResponse>> getSessionPageByMovieId(
+            @PathVariable Long movieId,
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+    );
+
     @RequestMapping(method = RequestMethod.GET, value = "/sessions/{sessionId}")
     ResponseEntity<SessionResponse> getSession(@PathVariable Long sessionId);
 

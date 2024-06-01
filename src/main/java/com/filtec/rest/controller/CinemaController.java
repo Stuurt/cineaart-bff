@@ -50,6 +50,15 @@ public class CinemaController {
         return cinemaService.getSessionPage(page, size);
     }
 
+    @GetMapping("/sessions/movies/{movieId}")
+    public ResponseEntity<PagedResource<SessionListResponse>> getSessionPage(
+            @PathVariable Long movieId,
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size
+    ) {
+        return cinemaService.getSessionPageByMovieId(movieId, page, size);
+    }
+
     @GetMapping("/movies")
     public ResponseEntity<PagedResource<MovieListResponse>> getMoviePage(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,

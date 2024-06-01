@@ -55,6 +55,10 @@ public class CinemaService {
         return cinemaClient.getSessionPage(page, size);
     }
 
+    public ResponseEntity<PagedResource<SessionListResponse>> getSessionPageByMovieId(Long movieId, int page, int size) {
+        return cinemaClient.getSessionPageByMovieId(movieId, page, size);
+    }
+
     public ResponseEntity<SessionResponse> getSessionById(Long sessionId) {
         return cinemaClient.getSession(sessionId);
     }
