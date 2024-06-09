@@ -37,7 +37,7 @@ public interface CinemaClient {
     @GetMapping("/movies/{movieId}")
     ResponseEntity<MovieResponse> getMovieById(@PathVariable Long movieId);
 
-    @PostMapping("/movies/{movieId}/rooms/{roomId}")
+    @PostMapping("/sessions/movies/{movieId}/rooms/{roomId}")
     ResponseEntity<Session> createSession(
             @Valid @RequestBody SessionCreateRequest sessionCreateRequest,
             @PathVariable("movieId") Long movieId,

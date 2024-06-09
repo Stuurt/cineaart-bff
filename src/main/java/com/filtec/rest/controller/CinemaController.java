@@ -18,8 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/cinema")
@@ -33,7 +31,7 @@ public class CinemaController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    @PostMapping("/movies/{movieId}/rooms/{roomId}/sessions")
+    @PostMapping("/sessions/movies/{movieId}/rooms/{roomId}")
     public ResponseEntity<Session> createSession(
             @RequestBody SessionCreateRequest request,
             @PathVariable Long movieId,
