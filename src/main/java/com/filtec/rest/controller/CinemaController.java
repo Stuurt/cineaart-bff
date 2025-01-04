@@ -87,7 +87,7 @@ public class CinemaController {
     }
 
     @GetMapping(
-            value = "/movies/{movieId}/get-image",
+            value = "/movies/{movieId}/image",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
     public @ResponseBody byte[] getMovieImage(@PathVariable Long movieId) {
